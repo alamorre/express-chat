@@ -10,43 +10,35 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 
 app.post("/login", async (req, res) => {
-  const { username } = req.body;
-  const accessToken = generateAccessToken(username);
-
+  const { username, secret } = req.body;
   // Fetch user on Chat Engine
   try {
     const r = await axios.get("https://api.chatengine.io/users/me/", {
       headers: {
         "Project-ID": process.env.CHAT_ENGINE_PROJECT_ID,
         "User-Name": username,
-        "User-Secret": accessToken,
+        "User-Secret": secret,
       },
     });
-    res.json({ accessToken });
+    return res.status(r.status).json(r.data);
   } catch (e) {
     return res.status(e.response.status).json(e.response.data);
   }
 });
 
 app.post("/register", async (req, res) => {
-  const { username, email, first_name, last_name } = req.body;
-  const accessToken = generateAccessToken(username);
-
+  const { username, secret, email, first_name, last_name } = req.body;
   // Create user on Chat Engine
   try {
     const r = await axios.post(
       "https://api.chatengine.io/users/",
-      { username, email, first_name, last_name, secret: accessToken },
+      { username, email, first_name, last_name, secret },
       { headers: { "Private-Key": process.env.CHAT_ENGINE_PRIVATE_KEY } }
     );
-    return res.json({ accessToken });
+    return res.status(r.status).json(r.data);
   } catch (e) {
     return res.status(e.response.status).json(e.response.data);
   }
 });
-
-function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-}
 
 app.listen(4000);

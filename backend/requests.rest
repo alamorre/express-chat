@@ -1,8 +1,10 @@
+
 POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "username": "Jim"
+  "username": "Jimbo",
+  "secret": "applesauce"
 }
 
 ###
@@ -12,6 +14,7 @@ Content-Type: application/json
 
 {
   "username": "Jimbo",
+  "secret": "applesauce",
   "email": "jim@gmail.com",
   "first_name": "jim@gmail.com",
   "last_name": "jim@gmail.com"
