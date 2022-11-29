@@ -17,7 +17,7 @@ const AuthPage = (props) => {
         username: username,
         secret: password,
       })
-      .then((r) => props.callback(r.data))
+      .then((r) => props.callback({ ...r.data, secret: password }))
       .catch((e) => setError(JSON.stringify(e.response.data)));
   };
 
@@ -31,7 +31,7 @@ const AuthPage = (props) => {
         first_name: firstName,
         last_name: lastName,
       })
-      .then((r) => props.callback(r.data))
+      .then((r) => props.callback({ ...r.data, secret: password }))
       .catch((e) => setError(JSON.stringify(e.response.data)));
   };
 
