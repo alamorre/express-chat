@@ -3,36 +3,31 @@ import axios from "axios";
 
 const AuthPage = (props) => {
   const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [secret, setSecret] = useState();
   const [email, setEmail] = useState();
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  // Error handling
-  const [error, setError] = useState();
+  const [first_name, setFirstName] = useState();
+  const [last_name, setLastName] = useState();
 
   const onLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/login", {
-        username: username,
-        secret: password,
-      })
-      .then((r) => props.callback({ ...r.data, secret: password }))
-      .catch((e) => setError(JSON.stringify(e.response.data)));
+      .post("http://localhost:3001/login", { username, secret })
+      .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
+      .catch((e) => console.log(JSON.stringify(e.response.data)));
   };
 
   const onSignup = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/register", {
-        username: username,
-        secret: password,
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
+      .post("http://localhost:3001/signup", {
+        username,
+        secret,
+        email,
+        first_name,
+        last_name,
       })
-      .then((r) => props.callback({ ...r.data, secret: password }))
-      .catch((e) => setError(JSON.stringify(e.response.data)));
+      .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
+      .catch((e) => console.log(JSON.stringify(e.response.data)));
   };
 
   return (
@@ -50,17 +45,16 @@ const AuthPage = (props) => {
         </label>
         <br />
         <label>
-          Password:
+          Secret:
           <input
             type="password"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
+            name="secret"
+            onChange={(e) => setSecret(e.target.value)}
           />
         </label>
         <br />
         <input type="submit" value="Login" />
       </form>
-
       {/* Sign Up Form */}
       <form onSubmit={onSignup}>
         <h3>or Sign Up</h3>
@@ -77,8 +71,8 @@ const AuthPage = (props) => {
           Password:
           <input
             type="password"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
+            name="secret"
+            onChange={(e) => setSecret(e.target.value)}
           />
         </label>
         <br />
@@ -111,8 +105,6 @@ const AuthPage = (props) => {
         <br />
         <input type="submit" value="Sign Up" />
       </form>
-
-      {error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
 };

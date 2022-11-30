@@ -10,7 +10,9 @@ app.use(cors({ origin: true }));
 
 app.post("/login", async (req, res) => {
   const { username, secret } = req.body;
-  // Fetch user on Chat Engine
+
+  // Fetch user from DB...
+
   try {
     const r = await axios.get("https://api.chatengine.io/users/me/", {
       headers: {
@@ -25,13 +27,15 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/register", async (req, res) => {
+app.post("/signup", async (req, res) => {
   const { username, secret, email, first_name, last_name } = req.body;
-  // Create user on Chat Engine
+
+  // Write user into DB...
+
   try {
     const r = await axios.post(
       "https://api.chatengine.io/users/",
-      { username, email, first_name, last_name, secret },
+      { username, secret, email, first_name, last_name },
       { headers: { "Private-Key": process.env.CHAT_ENGINE_PRIVATE_KEY } }
     );
     return res.status(r.status).json(r.data);

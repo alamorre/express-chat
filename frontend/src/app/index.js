@@ -7,7 +7,7 @@ function App() {
   const [user, setUser] = useState();
 
   if (!user) {
-    return <AuthPage callback={(user) => setUser(user)} />;
+    return <AuthPage onAuth={(user) => setUser(user)} />;
   } else {
     return <ChatsPage user={user} />;
   }
