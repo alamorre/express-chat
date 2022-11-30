@@ -1,22 +1,22 @@
 
-POST http://localhost:4000/login
+POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-  "username": "Jimbo",
-  "secret": "applesauce"
+  "username": "adam",
+  "secret": "pass1234"
 }
 
 ###
 
-POST http://localhost:4000/signup
+POST http://localhost:3001/signup
 Content-Type: application/json
 
 {
-  "username": "Jimbo",
-  "secret": "applesauce",
-  "email": "jim@gmail.com",
-  "first_name": "jim@gmail.com",
-  "last_name": "jim@gmail.com"
+  "username": "zack",
+  "secret": "pass1234",
+  "email": "zack@gmail.com",
+  "first_name": "Zack",
+  "last_name": "Engine"
 }
 
