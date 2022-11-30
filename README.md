@@ -22,7 +22,7 @@ We will connect to your Chat Engine server with environment varibles. Replace th
 In `frontend/.env` write:
 
 ```
-CHAT_ENGINE_PROJECT_ID=5d498a31-cd23-42b7-b367-4fcc9463bd2f
+REACT_APP_CHAT_ENGINE_PROJECT_ID=5d498a31-cd23-42b7-b367-4fcc9463bd2f
 ```
 
 In `backend/.env` write:
