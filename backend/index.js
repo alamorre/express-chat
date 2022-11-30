@@ -44,4 +44,6 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+// Docs at rest.chatengine.io
+
 app.listen(3001);
